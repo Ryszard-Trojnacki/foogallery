@@ -17,6 +17,10 @@
 	display: none;
 }
 
+.foogallery-simple_portfolio .bf-item-hidden {
+	display: none;
+}
+
 .foogallery-simple_portfolio.bf-loaded .bf-item {
 	display: inline-block;
 }
