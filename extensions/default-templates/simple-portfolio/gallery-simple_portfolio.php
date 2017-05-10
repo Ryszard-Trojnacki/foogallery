@@ -13,6 +13,7 @@ $args['image_attributes'] = array(
 $lightbox = foogallery_gallery_template_setting( 'lightbox', 'unknown' );
 $gutter = foogallery_gallery_template_setting( 'gutter', 40 );
 $caption_position = foogallery_gallery_template_setting( 'caption_position', '' );
+$thumbnails_limit = foogallery_gallery_template_setting( 'thumbnails_limit', 0 );
 
 $caption_bg_color = foogallery_gallery_template_setting( 'caption_bg_color', '#ffffff' );
 $caption_text_color = foogallery_gallery_template_setting( 'caption_text_color', '#000000' );
@@ -29,8 +30,11 @@ if ( !empty( $caption_bg_color ) || !empty( $caption_text_color ) ) {
 ?>
 <div data-brickfolio-gutter="<?php echo $gutter; ?>" id="foogallery-gallery-<?php echo $current_foogallery->ID; ?>" class="<?php foogallery_build_class_attribute_render_safe( $current_foogallery, 'foogallery-lightbox-' . $lightbox, 'brickfolio', $caption_position ); ?>">
 <?php
+$limit_counter=0;
 foreach ( $current_foogallery->attachments() as $attachment ) {
-	echo '<div class="bf-item" style="width:' . $args['width'] . 'px">';
+	$item_style='bf-item';
+	if($thumbnails_limit>0 && $limit_counter>$thumbnails_limit) $item_style='bf-item-hidden';
+	echo '<div class="'.$item_style.'" style="width:' . $args['width'] . 'px">';
 	$caption = null;
 	if ( !empty($attachment->caption) || !empty($attachment->description) ) {
 		$caption = '<div class="bf-caption">';
